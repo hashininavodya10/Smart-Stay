@@ -1,0 +1,45 @@
+CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(20) NOT NULL, -- GUEST, STAFF, ADMIN
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE rooms (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    room_number VARCHAR(10) UNIQUE NOT NULL,
+    token VARCHAR(255) UNIQUE NOT NULL, -- Used for /room/:token URL
+    guest_id BIGINT,
+    status VARCHAR(20) DEFAULT 'AVAILABLE',
+    FOREIGN KEY (guest_id) REFERENCES users(id)
+);
+
+CREATE TABLE service_requests (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    room_id BIGINT NOT NULL,
+    guest_id BIGINT NOT NULL,
+    staff_id BIGINT,
+    type VARCHAR(50) NOT NULL, -- MEALS, HOUSEKEEPING, MAINTENANCE, SECURITY
+    priority VARCHAR(20) NOT NULL, -- LOW, MEDIUM, HIGH
+    status VARCHAR(20) NOT NULL DEFAULT 'NEW', -- NEW, ACCEPTED, IN_PROGRESS, COMPLETED
+    description TEXT,
+    scheduled_time TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (room_id) REFERENCES rooms(id),
+    FOREIGN KEY (guest_id) REFERENCES users(id),
+    FOREIGN KEY (staff_id) REFERENCES users(id)
+);
+
+CREATE TABLE chat_messages (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    room_id BIGINT NOT NULL,
+    sender_id BIGINT NOT NULL,
+    content TEXT NOT NULL,
+    priority VARCHAR(20) DEFAULT 'LOW',
+    is_automated BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (room_id) REFERENCES rooms(id),
+    FOREIGN KEY (sender_id) REFERENCES users(id)
+);

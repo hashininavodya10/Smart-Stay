@@ -1,0 +1,16 @@
+com\smarthotel\config\WebSocketConfig.class
+com\smarthotel\model\ServiceRequest$Priority.class
+com\smarthotel\repository\UserRepository.class
+com\smarthotel\model\User.class
+com\smarthotel\SmartHotelApplication.class
+com\smarthotel\model\User$Role.class
+com\smarthotel\repository\RoomRepository.class
+com\smarthotel\controller\SmartHotelController.class
+com\smarthotel\model\ServiceRequest$RequestStatus.class
+com\smarthotel\model\ServiceRequest.class
+com\smarthotel\model\ChatMessage$Priority.class
+com\smarthotel\model\Room.class
+com\smarthotel\model\ChatMessage.class
+com\smarthotel\repository\ChatMessageRepository.class
+com\smarthotel\repository\ServiceRequestRepository.class
+com\smarthotel\model\ServiceRequest$RequestType.class
